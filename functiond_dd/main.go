@@ -1,42 +1,19 @@
 package main
 
-import (
-	"fmt"
-)
-
-type transformFn func(int) int
+import "fmt"
 
 func main() {
 	numbers := []int{1, 2, 3, 4, 5}
-
-	double := createTransformer(2)
-	triple := createTransformer(3)
-
-	transformed := transformNumbers(&numbers, func(number int) int {
-		return number * 2
-	})
-
-	doubled := transformNumbers(&numbers, double)
-	tripled := transformNumbers(&numbers, triple)
-
-	fmt.Println(doubled)
-	fmt.Println(tripled)
-
-	fmt.Println(transformed)
+	sum := sumup(1, 10, 15, 40, -5)
+	anotherSum := sumup(1, numbers...)
+	fmt.Println("Sum: ", sum)
+	fmt.Println("Another Sum: ", anotherSum)
 }
 
-func transformNumbers(numbers *[]int, transform transformFn) []int {
-	dNumbers := []int{}
-
-	for _, val := range *numbers {
-		dNumbers = append(dNumbers, transform(val))
+func sumup(startingValue int, numbers ...int) int {
+	sum := 0
+	for _, val := range numbers {
+		sum += val
 	}
-
-	return dNumbers
-}
-
-func createTransformer(factor int) func(int) int {
-	return func(number int) int {
-		return number * factor
-	}
+	return sum
 }
