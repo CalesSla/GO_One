@@ -1,4 +1,4 @@
-package main
+package lists
 
 import "fmt"
 
@@ -37,4 +37,12 @@ type Product struct {
 func main() {
 	prices := []float64{19.99, 29.99}
 	fmt.Println(prices[0:1])
+
+	prices = append(prices, 39.99)
+	prices = prices[1:]
+	fmt.Println(prices)
+
+	discountPrices := []float64{9.99, 14.99}
+	prices = append(prices, discountPrices...)
+	fmt.Println(prices)
 }

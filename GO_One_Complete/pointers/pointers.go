@@ -18,4 +18,5 @@ func main() {
 
 func getAdultYears(age *int) int {
 	*age = *age - 18
+
 }

@@ -11,5 +11,4 @@ func (text str) log() {
 func main() {
 	var name str = "Max"
 	name.log()
-
 }
