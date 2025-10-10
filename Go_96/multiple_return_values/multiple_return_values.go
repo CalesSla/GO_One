@@ -22,6 +22,7 @@ func main() {
 func divide(a, b int) (int, int) {
 	quotient := a / b
 	remainder := a % b
+	fmt.Println("Inside divide function")
 	return quotient, remainder
 }
 
