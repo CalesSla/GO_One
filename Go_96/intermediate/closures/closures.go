@@ -4,14 +4,28 @@ import "fmt"
 
 func main() {
 
-	sequence := adder()
-	fmt.Println(sequence())
-	fmt.Println(sequence())
-	fmt.Println(sequence())
-	fmt.Println(sequence())
+	// sequence := adder()
+	// fmt.Println(sequence())
+	// fmt.Println(sequence())
+	// fmt.Println(sequence())
+	// fmt.Println(sequence())
 
-	sequence2 := adder()
-	fmt.Println(sequence2())
+	// sequence2 := adder()
+	// fmt.Println(sequence2())
+
+	subtracter := func() func(int) int {
+		countdown := 99
+		return func(x int) int {
+			countdown -= x
+			return countdown
+		}
+	}()
+
+	fmt.Println(subtracter(1))
+	fmt.Println(subtracter(1))
+	fmt.Println(subtracter(1))
+
+	fmt.Println(subtracter(5))
 
 }
 
