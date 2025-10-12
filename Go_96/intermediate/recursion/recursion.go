@@ -9,8 +9,9 @@ func main() {
 	// res2 := sumOfDigits(12345)
 	// fmt.Println(res2)
 
-	res := fibonacci(8)
-	fmt.Println(res)
+	fibs := []int{0, 1}
+	fibonacci(8, &fibs)
+	fmt.Println(fibs)
 
 }
 
@@ -28,17 +29,11 @@ func sumOfDigits(n int) int {
 	return n%10 + sumOfDigits(n/10)
 }
 
-func fibonacci(n int) []int {
-	if n <= 0 {
-		return []int{}
-	} else if n == 1 {
-		return []int{0}
-	} else if n == 2 {
-		return []int{0, 1}
+func fibonacci(n int, fibs *[]int) {
+	if len(*fibs) >= n {
+		return
 	}
-	fibs := fibonacci(n - 1)
-	nextFib := fibs[len(fibs)-1] + fibs[len(fibs)-2]
-	fibs = append(fibs, nextFib)
-
-	return fibs
+	nextFib := (*fibs)[len(*fibs)-1] + (*fibs)[len(*fibs)-2]
+	*fibs = append(*fibs, nextFib)
+	fibonacci(n, fibs)
 }
