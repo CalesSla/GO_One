@@ -12,6 +12,10 @@ func main() {
 			city:    "New York",
 			country: "USA",
 		},
+		PhoneHomeCell: PhoneHomeCell{
+			home: "123-456-7890",
+			cell: "098-765-4321",
+		},
 	}
 
 	p1 := Person{
@@ -29,6 +33,11 @@ func main() {
 	fmt.Println(p1.lastName)
 
 	fmt.Println(p.fullName())
+
+	fmt.Println(p.cell)
+	fmt.Println(p.home)
+
+	fmt.Println(p == p1)
 
 	user := struct {
 		username string
@@ -57,11 +66,17 @@ type Person struct {
 	lastName  string
 	age       int
 	address   Address
+	PhoneHomeCell
 }
 
 type Address struct {
 	city    string
 	country string
+}
+
+type PhoneHomeCell struct {
+	home string
+	cell string
 }
 
 func (p Person) fullName() string {
