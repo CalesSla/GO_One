@@ -43,11 +43,18 @@ func main() {
 	// }
 	// fmt.Println("Data processed successfully")
 
-	err1 := eprocess()
-	if err1 != nil {
-		fmt.Println(err1)
+	// err1 := eprocess()
+	// if err1 != nil {
+	// 	fmt.Println(err1)
+	// 	return
+	// }
+
+	err := readData()
+	if err != nil {
+		fmt.Println(err)
 		return
 	}
+	fmt.Println("Data read successfully")
 }
 
 type myError struct {
@@ -60,4 +67,16 @@ func (m *myError) Error() string {
 
 func eprocess() error {
 	return &myError{"Custom error message"}
+}
+
+func readConfig() error {
+	return errors.New("Config error")
+}
+
+func readData() error {
+	err := readConfig()
+	if err != nil {
+		return fmt.Errorf("readData: %w", err)
+	}
+	return nil
 }
