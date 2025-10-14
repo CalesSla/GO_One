@@ -7,6 +7,10 @@ type Rectangle struct {
 	width  float64
 }
 
+type Shape struct {
+	Rectangle
+}
+
 func (r Rectangle) Area() float64 {
 	return r.length * r.width
 }
@@ -17,20 +21,26 @@ func (r *Rectangle) Scale(factor float64) {
 }
 
 func main() {
-	rect := Rectangle{length: 10, width: 9}
-	area := rect.Area()
-	fmt.Println("Area: ", area)
+	// rect := Rectangle{length: 10, width: 9}
+	// area := rect.Area()
+	// fmt.Println("Area: ", area)
 
-	rect.Scale(1.5)
-	newArea := rect.Area()
-	fmt.Println("New Area: ", newArea)
+	// rect.Scale(1.5)
+	// newArea := rect.Area()
+	// fmt.Println("New Area: ", newArea)
 
-	num := MyInt(-5)
-	fmt.Println("Is Positive: ", num.IsPositive())
-	num2 := MyInt(10)
-	fmt.Println("Is Positive: ", num2.IsPositive())
+	// num := MyInt(-5)
+	// fmt.Println("Is Positive: ", num.IsPositive())
+	// num2 := MyInt(10)
+	// fmt.Println("Is Positive: ", num2.IsPositive())
 
-	fmt.Println(num.welcomeMessage())
+	// fmt.Println(num.welcomeMessage())
+
+	s := Shape{
+		Rectangle: Rectangle{length: 5, width: 4},
+	}
+
+	fmt.Println(s.Rectangle.Area())
 }
 
 type MyInt int
