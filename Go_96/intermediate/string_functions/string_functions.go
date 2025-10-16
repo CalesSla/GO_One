@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -51,4 +52,10 @@ func main() {
 
 	fmt.Println(strings.HasPrefix("Hello", "he"))
 	fmt.Println(strings.HasSuffix("Hello", "lo"))
+
+	str5 := "Hello, 123 Go 11!"
+	re := regexp.MustCompile(`\d+`)
+	matches := re.FindAllString(str5, -1)
+	fmt.Println(matches)
+
 }
