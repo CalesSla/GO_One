@@ -6,19 +6,60 @@ import (
 )
 
 func main() {
-	rawURL := "https://example.com:8080/path?query=param#fragment"
+	// rawURL := "https://example.com:8080/path?query=param#fragment"
 
-	parsedURL, err := url.Parse(rawURL)
+	// parsedURL, err := url.Parse(rawURL)
+	// if err != nil {
+	// 	fmt.Println("Error parsing URL:", err)
+	// 	return
+	// }
+
+	// fmt.Println("Scheme:", parsedURL.Scheme)
+	// fmt.Println("Host:", parsedURL.Host)
+	// fmt.Println("Port:", parsedURL.Port())
+	// fmt.Println("Path:", parsedURL.Path)
+	// fmt.Println("Raw Query:", parsedURL.RawQuery)
+	// fmt.Println("Fragment:", parsedURL.Fragment)
+
+	rawURL1 := "https://example.com/path?name=John&age=30"
+
+	parsedURL1, err := url.Parse(rawURL1)
 	if err != nil {
 		fmt.Println("Error parsing URL:", err)
 		return
 	}
-	fmt.Println(parsedURL)
-	fmt.Println("Scheme:", parsedURL.Scheme)
-	fmt.Println("Host:", parsedURL.Host)
-	fmt.Println("Port:", parsedURL.Port())
-	fmt.Println("Path:", parsedURL.Path)
-	fmt.Println("RawQuery:", parsedURL.RawQuery)
-	fmt.Println("Fragment:", parsedURL.Fragment)
+
+	queryParams := parsedURL1.Query()
+	fmt.Println(queryParams)
+	fmt.Println("Name: ", queryParams.Get("name"))
+	fmt.Println("Age: ", queryParams.Get("age"))
+	fmt.Println("Name: ", queryParams["name"][0])
+	fmt.Println("Age: ", queryParams["age"][0])
+
+	baseURL := &url.URL{
+		Scheme: "https",
+		Host:   "example.com",
+		Path:   "/path",
+	}
+
+	query := baseURL.Query()
+	query.Set("name", "John")
+
+	baseURL.RawQuery = query.Encode()
+
+	fmt.Println("Bild URL:", baseURL.String())
+
+	values := url.Values{}
+	values.Add("name", "John")
+	values.Add("age", "30")
+	values.Add("city", "London")
+	values.Add("country", "UK")
+
+	encodedQuery := values.Encode()
+	fmt.Println("encoded Query:", encodedQuery)
+
+	baseURL1 := "https://example.com/search"
+	fullURL := baseURL1 + "?" + encodedQuery
+	fmt.Println("Full URL:", fullURL)
 
 }
