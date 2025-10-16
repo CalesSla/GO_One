@@ -36,6 +36,7 @@ func main() {
 	decimal, err := strconv.ParseInt(binaryStr, 2, 64)
 	if err != nil {
 		fmt.Println("Error:", err)
+		return
 	}
 	fmt.Println("Binary to decimal:", decimal)
 
