@@ -22,16 +22,37 @@ func main() {
 	// fmt.Printf("SHA-512 Hash hex val: %x\n", hash512)
 
 	salt, err := generateSalt()
+	fmt.Println("Original Salt: ", salt)
+	fmt.Printf("Original Salt hex: %x\n", salt)
+
 	if err != nil {
 		fmt.Println("Error generating salt:", err)
 		return
 	}
 
-	hash := hashPassword(password, salt)
+	signupHash := hashPassword(password, salt)
 
 	saltStr := base64.StdEncoding.EncodeToString(salt)
 	fmt.Println("Salt (base64):", saltStr)
-	fmt.Println("Hashed Password (base64):", hash)
+	fmt.Println("Hashed Password (base64):", signupHash)
+	hashOriginalPassword := sha256.Sum256([]byte(password))
+	fmt.Println("Hash of just the password without salt: ", base64.StdEncoding.EncodeToString(hashOriginalPassword[:]))
+
+	decodedSalt, err := base64.StdEncoding.DecodeString(saltStr)
+	if err != nil {
+		fmt.Println("Error decoding salt:", err)
+		return
+	}
+
+	loginPassword := "password123"
+
+	loginHash := hashPassword(loginPassword, decodedSalt)
+
+	if signupHash == loginHash {
+		fmt.Println("Password match!")
+	} else {
+		fmt.Println("Password do not match!")
+	}
 
 }
 
