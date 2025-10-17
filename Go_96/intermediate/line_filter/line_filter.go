@@ -36,5 +36,4 @@ func main() {
 		fmt.Println("Error reading file:", err)
 		return
 	}
-
 }
