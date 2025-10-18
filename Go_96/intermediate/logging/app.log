@@ -1,0 +1,6 @@
+INFO: 2025/10/18 18:27:11 logging.go:35: This is a debug message.
+DEBUG: 2025/10/18 18:27:47 logging.go:35: This is a debug message.
+DEBUG: 2025/10/18 19:16:45 logging.go:39: This is a debug message.
+WARN: 2025/10/18 19:16:45 logging.go:40: This is a warning log message written to file.
+ERROR: 2025/10/18 19:16:45 logging.go:41: This is an error log message written to file.
+INFO: 2025/10/18 19:16:45 logging.go:42: This is an info log message written to file.
