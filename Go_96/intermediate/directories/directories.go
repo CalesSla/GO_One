@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 func checkError(err error) {
@@ -13,21 +14,21 @@ func checkError(err error) {
 
 func main() {
 
-	// err := os.Mkdir("subdir", 0755)
-	// checkError(err)
-	// // defer os.RemoveAll("subdir")
+	err := os.Mkdir("subdir", 0755)
+	checkError(err)
+	// defer os.RemoveAll("subdir")
 
-	// os.WriteFile("subdir/file", []byte(""), 0755)
+	os.WriteFile("subdir/file", []byte(""), 0755)
 
-	// err = os.MkdirAll("subdir/parent/child", 0755)
-	// checkError(err)
+	err = os.MkdirAll("subdir/parent/child", 0755)
+	checkError(err)
 
-	// checkError(os.MkdirAll("subdir/parent/child1", 0755))
-	// checkError(os.MkdirAll("subdir/parent/child2", 0755))
-	// checkError(os.MkdirAll("subdir/parent/child3", 0755))
+	checkError(os.MkdirAll("subdir/parent/child1", 0755))
+	checkError(os.MkdirAll("subdir/parent/child2", 0755))
+	checkError(os.MkdirAll("subdir/parent/child3", 0755))
 
-	// os.WriteFile("subdir/parent/file", []byte("some data"), 0755)
-	// os.WriteFile("subdir/parent/child1/file1", []byte("some data1"), 0755)
+	os.WriteFile("subdir/parent/file", []byte("some data"), 0755)
+	os.WriteFile("subdir/parent/child1/file1", []byte("some data1"), 0755)
 
 	result, err := os.ReadDir("subdir/parent")
 	checkError(err)
@@ -51,5 +52,20 @@ func main() {
 	dir, err := os.Getwd()
 	checkError(err)
 	fmt.Println("Current working directory:", dir)
+
+	pathfile := "subdir"
+	fmt.Println("Walking through directory:", pathfile)
+	filepath.WalkDir(pathfile, func(path string, d os.DirEntry, err error) error {
+		if err != nil {
+			fmt.Println("Error: ", err)
+		}
+
+		fmt.Println(path)
+		return nil
+	})
+
+	checkError(err)
+
+	checkError(os.RemoveAll("subdir"))
 
 }
