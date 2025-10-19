@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"os"
 	"strings"
 )
 
@@ -50,6 +51,37 @@ func multiReaderExample() {
 	fmt.Println(buf.String())
 }
 
+func pipeExample() {
+	pr, pw := io.Pipe()
+
+	go func() {
+		pw.Write([]byte("Hello Pipe!"))
+		pw.Close()
+	}()
+
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(pr)
+
+	fmt.Println(buf.String())
+
+}
+
+func writeToFile(filepath string, data string) {
+	file, err := os.OpenFile(filepath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer closeResource(file)
+
+	_, err = file.Write([]byte(data))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// writer := io.Writer(file)
+	// _, err = writer.Write([]byte(data))
+
+}
 func main() {
 	fmt.Println("=== Read from Reader ===")
 	readFromReader(strings.NewReader("Hello reader!"))
@@ -64,4 +96,22 @@ func main() {
 
 	fmt.Println("\n=== MultiReader Example ===")
 	multiReaderExample()
+
+	fmt.Println("\n=== Pipe Example ===")
+	pipeExample()
+
+	filepath := "io.txt"
+	writeToFile(filepath, "Hello File!")
+
+	resource := &MyResource{name: "TestResource"}
+	closeResource(resource)
+}
+
+type MyResource struct {
+	name string
+}
+
+func (m *MyResource) Close() error {
+	fmt.Println("Closing resource:", m.name)
+	return nil
 }
